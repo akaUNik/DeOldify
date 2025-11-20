@@ -616,7 +616,7 @@ def load_callback(class_func, state, learn:Learner):
 def load_learner(path:PathOrStr, file:PathLikeOrBinaryStream='export.pkl', test:ItemList=None, **db_kwargs):
     "Load a `Learner` object saved with `export_state` in `path/file` with empty data, optionally add `test` and load on `cpu`. `file` can be file-like (file or buffer)"
     source = Path(path)/file if is_pathlike(file) else file
-    state = torch.load(source, map_location='cpu') if defaults.device == torch.device('cpu') else torch.load(source)
+    state = torch.load(source, map_location='cpu', weights_only=False) if defaults.device == torch.device('cpu') else torch.load(source, weights_only=False)
     model = state.pop('model')
     src = LabelLists.load_state(path, state.pop('data'))
     if test is not None: src.add_test(test)

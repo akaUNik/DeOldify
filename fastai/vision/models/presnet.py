@@ -120,7 +120,7 @@ model_urls = dict(presnet34='presnet34', presnet50='presnet50')
 def presnet(block, n_layers, name, pre=False, **kwargs):
     model = PResNet(block, n_layers, **kwargs)
     #if pre: model.load_state_dict(model_zoo.load_url(model_urls[name]))
-    if pre: model.load_state_dict(torch.load(model_urls[name]))
+    if pre: model.load_state_dict(torch.load(model_urls[name], weights_only=False))
     return model
 
 def presnet18(pretrained=False, **kwargs):
@@ -137,4 +137,3 @@ def presnet101(pretrained=False, **kwargs):
 
 def presnet152(pretrained=False, **kwargs):
     return presnet(Bottleneck, [3, 8, 36, 3], 'presnet152', pre=pretrained, **kwargs)
-
