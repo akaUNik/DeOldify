@@ -319,7 +319,7 @@ class Learner():
         torch.save(state, open(tmp_file, 'wb'))
         for a in attrs_del: delattr(self, a)
         gc.collect()
-        state = torch.load(tmp_file)
+        state = torch.load(tmp_file, weights_only=False)
         os.remove(tmp_file)
 
         for a in attrs_pkl: setattr(self, a, state[a])
